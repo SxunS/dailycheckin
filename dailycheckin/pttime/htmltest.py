@@ -1,5 +1,6 @@
 import os
 import unittest
+import re
 
 from bs4 import BeautifulSoup
 
@@ -8,7 +9,7 @@ class MyTestCase(unittest.TestCase):
 
 
     def test_something(self):
-        html_file_path = os.path.join(os.path.dirname(__file__), "tmp-success.html")
+        html_file_path = os.path.join(os.path.dirname(__file__), "tmp.html")
 
         # 读取HTML文件内容
         with open(html_file_path, 'r', encoding='utf-8') as file:
@@ -22,46 +23,65 @@ class MyTestCase(unittest.TestCase):
         user_name = soup.find('a', class_='PowerUser_Name').text.strip()
         user_id = soup.find('a', class_='PowerUser_Name')['href'].split('=')[-1]
 
+        # 提取用户等级
+        # 使用正则表达式提取等级
+        pattern = r'\[UID=\d+\]\[(.*?)\]'
+        match = re.search(pattern, user_info)
+
+        if match:
+            user_level = match.group(1)
+        else:
+            user_level = 'UNKnow'
+
         # 提取签到记录
         attendance_info = soup.find('table', class_='mainouter mt5').findChild("td", class_="embedded")
 
         # 初始化变量
-        total_days = 0
-        consecutive_days = 0
         first_checkin = ''
         days_since_first_checkin = ''
         current_consecutive_start = ''
-        checkin_records = []
 
-        # 解析签到记录
         for span in attendance_info:
             text = span.text.strip()
-            if '总签到：' in text:
-                total_days = int(text.split('：')[1].split('天')[0])
-            elif '连续天数：' in text:
-                consecutive_days = int(text.split('：')[1].split('天')[0])
-            elif '第一次签到：' in text:
+            if '第一次签到：' in text:
                 first_checkin = text.split('：')[1]
             elif '距今：' in text:
                 days_since_first_checkin = text.split('：')[1]
             elif '本次连续签到开始时间：' in text:
                 current_consecutive_start = text.split('：')[1]
-            elif '时间：' in text and '获得魔力值：' in text:
-                checkin_time = text.split('时间：')[1].split('获得魔力值：')[0].strip()
-                magic_points = int(text.split('获得魔力值：')[1].split('）')[0].strip().replace(' ', ''))
-                checkin_records.append({'time': checkin_time, 'magic_points': magic_points})
 
-        # 打印提取的信息
-        print(f"用户名: {user_name}")
-        print(f"用户ID: {user_id}")
-        print(f"总签到天数: {total_days}")
-        print(f"连续签到天数: {consecutive_days}")
-        print(f"第一次签到: {first_checkin}")
-        print(f"距今: {days_since_first_checkin}")
-        print(f"本次连续签到开始时间: {current_consecutive_start}")
-        print("签到记录:")
-        for record in checkin_records:
-            print(f"  时间: {record['time']}, 魔力值: {record['magic_points']}")
+        # 解析签到记录
+        checkin_result = attendance_info.find('p').text
+        if '今日签到成功' == checkin_result:
+            current_checkin_info = attendance_info.find('ul').find('li').findAll('b')
+            total_days = current_checkin_info[0].text
+            consecutive_days = current_checkin_info[1].text
+            magic_points = current_checkin_info[2].text
+            checkin_level = attendance_info.find('span', class_='ml10').find('b').text
+            msg = [
+                {"name": "用户名", "value": user_name},
+                {"name": "用户ID", "value": user_id},
+                {"name": "用户等级", "value": user_level},
+                {"name": "签到结果", "value": checkin_result},
+                {"name": "本次获取魔力", "value": magic_points},
+                {"name": "总签到天数", "value": total_days},
+                {"name": "连续签到天数", "value": consecutive_days},
+                {"name": "第一次签到", "value": first_checkin},
+                {"name": "距今", "value": days_since_first_checkin},
+                {"name": "本次连续签到开始时间", "value": current_consecutive_start},
+                {"name": "签到等级", "value": checkin_level},
+            ]
+        else:
+            msg = [
+                {"name": "用户名", "value": user_name},
+                {"name": "用户ID", "value": user_id},
+                {"name": "用户等级", "value": user_level},
+                {"name": "签到结果", "value": "请勿重复签到"},
+                {"name": "第一次签到", "value": first_checkin},
+            ]
+
+        msg = "\n".join([f"{one.get('name')}: {one.get('value')}" for one in msg])
+        print(msg)
 
 
 if __name__ == '__main__':
