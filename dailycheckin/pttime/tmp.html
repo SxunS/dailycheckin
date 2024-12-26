@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!-- <meta name="referrer" content="no-referrer" />  -->
+
+    <meta name="keywords" content="PTT,PT"/>
+    <meta name="description" content="分享你所爱，他所求，得我所愿！"/>
+    <meta name="generator" content="PTT-NP"/>
+    <title>PTT :: sxuns 签到记录 - 分享你所爱，他所求，得我所愿！ - V2024.12.01</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="search" type="application/opensearchdescription+xml" title="PTT Torrents" href="opensearch.php"/>
+    <link rel="stylesheet" href="styles/mediumfont.css" type="text/css"/>
+    <!-- ali_icon_xiugai -->
+    <link rel="stylesheet" href="styles/common.css" type="text/css"/>
+    <link rel="stylesheet" href="styles/mp.css" type="text/css"/>
+
+    <link rel="stylesheet" href="styles/PTtimeGray/theme.css" type="text/css"/>
+    <link rel="stylesheet" href="styles/catsprites.css" type="text/css"/>
+    <link rel="alternate" type="application/rss+xml" title="Latest Torrents" href="torrentrss.php"/>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <!-- 打补丁的js -->
+    <script type="text/javascript" src="js/polyfill.js"></script>
+    <!-- 用户图片类 -->
+    <script type="text/javascript" src="js/ajaxbasic.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/curtain_imageresizer.js"></script>
+    <script type="text/javascript" src="js/watermark.js"></script>
+    <style>
+        .clock {
+            height: 50px;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .clock span {
+            display: inline-block;
+            position: absolute;
+            height: 50px;
+            left: 24.5px;
+            top: 2px;
+        }
+
+        .clock span:before {
+            position: absolute;
+            display: inline-block;
+            width: 2px;
+            bottom: 50%;
+        }
+
+        .clock span:first-of-type {
+            animation: zhuanquan_s 60s ease infinite;
+        }
+
+        .clock span:nth-of-type(2) {
+            animation: zhuanquan_m 3600s ease infinite
+        }
+
+        .clock span:last-of-type {
+            animation: zhuanquan_h 43200s ease infinite
+        }
+
+        .clock span:first-of-type:before {
+            left: -1px;
+            height: 11px;
+            background: #002753;
+            content: "";
+        }
+
+        /* 秒针 */
+        .clock span:nth-of-type(2):before {
+            left: -1px;
+            height: 9px;
+            background: #FF9900;
+            content: "";
+        }
+
+        /* 分针 */
+        .clock span:last-of-type:before {
+            left: -1px;
+            height: 7px;
+            background: #c3272b;
+            content: "";
+        }
+
+        /* 时针 */
+        @keyframes zhuanquan_s {
+            0% {
+                transform: rotate(42deg)
+            }
+            100% {
+                transform: rotate(402deg)
+            }
+        }
+
+        @keyframes zhuanquan_m {
+            0% {
+                transform: rotate(132deg)
+            }
+            100% {
+                transform: rotate(492deg)
+            }
+        }
+
+        @keyframes zhuanquan_h {
+            0% {
+                transform: rotate(90deg)
+            }
+            100% {
+                transform: rotate(450deg)
+            }
+        }
+
+        /* 加载css3 */
+        .loading::before {
+            content: ' ';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            border-top-color: #333;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* 加载失败 */
+        .loadingErr:before {
+            content: "\2716";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+            color: #D30D15;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /*  */
+        .loadingErr + img {
+            display: none;
+        }
+
+        .infocss {
+            position: absolute;
+            margin-left: -288px;
+            font-size: 12px;
+            zoom: 50%; /* 使用zoom属性缩放文字大小为4px */
+        }
+
+        @-moz-document url-prefix() {
+            .infocss {
+                font-size: 4px;
+                margin-left: -132px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<table class="head auto" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+        <td class="clear">
+            <div class="clearfix auto pt5 mainouter">
+                <div class="clearfix">
+                    <div class="left">
+                        <div class="logo_img">
+                            <!-- 针 -->
+                            <div class="clock dib">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <!-- logo -->
+                            <a class="pr dib" href="index.php"><img style="pointer-events: none;user-select: none;"
+                                                                    oncontextmenu="return false;" height=50
+                                                                    src="/pic/ptt-w.png" alt="PTT"
+                                                                    title="PTT - 分享你所爱，他所求，得我所愿！祝站友们玩得愉快！"/></a>
+                            <span class="infocss" style="color: #136;">9866920241226152207</span>
+                            <!-- 广告 -->
+                        </div>
+                    </div>
+                    <div class="right">
+                        <a href="/donate.php" class="btn btn-mini ml5">💝捐赠&说明</a></div>
+                </div>
+                <!-- slogan -->
+                <div class="fcb clearfix">
+                    <div class='left'>分享你所爱，他所求，得我所愿！祝站友们玩得愉快！</div>
+                    <div class='right'>
+                        <a class="ml10 fcs" href="/smallshop.php">🛒小卖部（收货提交订单有奖励）</a><a class="fcs ml10"
+                                                                                                    href="/gamestone.php">✊🏽石头.剪刀.布</a><a
+                            class="fcs ml10" href="/gamepoke.php">🎲冲,21点</a><a class="fcs ml10" href="forbid.php">⛔️永久封禁用户</a><a
+                            class="fcs ml10"
+                            href="/forums.php?action=viewtopic&forumid=1&topicid=2375">👻Bug提交、反馈及建议</a></div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<!-- 导航结构 -->
+<table id="nav_list" class="mainouter mb5 mt5" width="90%" cellspacing="0" cellpadding="5" align="center">
+    <tbody>
+    <tr>
+        <td id="nav_block" class="text" align="center">
+            <table class="main" width="1200" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td class="embedded">
+                        <div id="nav">
+                            <ul id="mainmenu" class="menu mt5 main_nav">
+                                <li><a href="index.php">&nbsp;首&nbsp;&nbsp;页&nbsp;</a></li>
+                                <li><a href="forums.php">&nbsp;论&nbsp;&nbsp;坛&nbsp;</a></li>
+                                <li><a href="torrents.php">&nbsp;综&nbsp;&nbsp;合&nbsp;</a></li>
+                                <li><a href="adults.php">&nbsp;9kg&nbsp;</a></li>
+                                <li><a href="upload.php">&nbsp;发布种子&nbsp;</a>
+                                    <ul class="drop menu5">
+                                        <li><a href="upload_adults.php">发布9kg</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/offers.php">&nbsp;候&nbsp;&nbsp;选&nbsp;(0)</a></li>
+                                <li><a href="viewrequest.php">&nbsp;求&nbsp;&nbsp;种&nbsp;(960)</a></li>
+                                <li><a href="topten.php">排&nbsp;行&nbsp;榜</a></li>
+                                <li><a href="usercp.php">&nbsp;设置中心&nbsp;</a></li>
+                                <li><a href="usercp.php?action=special">&nbsp;特殊设定&nbsp;</a></li>
+                                <li><a href="sendmessage.php?receiver=2">&nbsp;联系管理(站内信)&nbsp;</a></li>
+                                <li><a href="lianghao.php">&nbsp;靓号区✨&nbsp;</a></li>
+                                <li><a class='text_new_user' href="/forums.php?action=viewtopic&topicid=16&page=0">&nbsp;致新用户&nbsp;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <!-- 用户信息 -->
+            <table id="info_block" cellpadding="4" cellspacing="0" border="0" width="97%">
+
+                <tr>
+                    <td class="bottom clearfix" align="left">
+                        <span class="medium left">嗨,
+                            <a href="userdetails.php?id=98669" class='PowerUser_Name'><b>sxuns</b></a><b
+                                    title='发布者：0级'>🎈</b>[UID=98669][(小学)Power User][<a
+                                    href="userdetails.php?id=98669" class="fcs fwb PowerUser">个人中心</a>]                            [<a
+                                    href="logout.php"><b>退出</b></a>]
+                            <span>[<a href="bookmarks.php?inclbookmarked=1&amp;incldead=0">收藏</a>]</span>
+                            <span>[<a href="myrss.php">RSS下载筐</a>]</span>
+                            <span>[<a href='getrss.php'>获取RSS</a>]</span>
+                            <font class="ml10"><b>邀请注册</b></font>
+                            [<a class="fcs" href="invite.php?id=98669">邀请</a>]:
+                            4/0<span class='ml10'><font><b>开注邀请码：</b></font><font class='fc8'>******((初中)Elite User及以上生效)</font></span><a
+                                    class="fcs ml10" href="/forums.php?action=viewforum&forumid=11">💊开注、发药、求药</a>                        </span>
+                        <!-- 大包免费提醒 -->
+                        <div class="right">
+                            <!-- 单种限速 -->
+                            <span class="ml5">上传&下载限速：<b>不限速</b></span>
+                            <!-- 大包免费 -->
+                            <span class="ml5">优质大包免费(详情页申请)：<b>≥</b><b>100G</b></b></font></span>
+                            <!-- 0流量包大小 -->
+                            <span class="ml5">0流量(详情页申请)：<b>≥</b><b>500G</b></b></font></span>
+                            <!-- 当前时间 -->
+                            <span class="ml5">⏲15:22</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bottom clearfix" align="right">
+                        <div class="left">
+                            <span class='mr5'><font class="">分享率:</font>1.26</span>
+                            <span class='mr5'><font class='fcg'>上传:</font>1.565TB</span>
+                            <span class='mr5'><font class='fcr'> 下载:</font>1.238TB</span>
+                            <span class='mr5'><font>活动:</font>
+                            <font title="当前做种" class="fcg">⬆</font>35                                <font
+                                        title="当前下载" class="fcr">⬇</font>3</span>
+                            <span class='mr5'>可连接:<font color="green">是</font></span>
+                            <!-- 最大连接数系统，目的是让用户只能下载有限多个链接。 -->
+                            <span class='mr5'>连接数:<font color="green">无限</font></span>
+                            <span class='mr5'><font>魔力值 (111.85魔力/小时)</font>
+                                [<a href="mybonus.php" class="fcs">使用&说明</a>]: 31097.0[<a
+                                        href="attendance.php?type=list" class="fcs">签到详情</a><font
+                                        color=gray>(补签卡7枚)</font>]</span>
+                        </div>
+                        <div class="right clearfix">
+                            <div class="left"><a class='ml10' href='friends.php'>🤼好友列表</a><a class='ml10'
+                                                                                                 href='/messages.php'>📫收件箱:5
+                                (0新)</a><a class='ml10' href='messages.php?action=viewmailbox&amp;box=-1'>📭发件箱:0</a>
+                            </div>
+                            <div class="right"><span class="ml10">🌏管理微信(需备注:98669):<font
+                                    class="fcg">pttime2</font></span><span class="ml10">🐧QQ群: <a class=fcs
+                                                                                                  target="_blank"
+                                                                                                  href="https://qm.qq.com/cgi-bin/qm/qr?k=PrDoWjNRQcE8VWx7NRTDfiz9ocsbu7m_&jump_from=webapi&authKey=4KxpLk6dZETOKFs6LtjxHaM3bG8vNa1s2smhi+jZJIipabxybNcYB62qfesGG2kX">205697152</a></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <!-- 管理组相关 -->
+                <!-- 管理组相关结束 -->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!-- 信息+资源结构 -->
+<table id="msg_list" class="mainouter" width="90%" cellspacing="0" cellpadding="5" align="center">
+    <tbody>
+    <tr>
+        <td id="outer" align="center" class="outer" style="padding:0">
+            <div align=center id="ad_belownav" class='p10'><b><span style='color: #c00;'>本站将于2025年1月1日-3日开注1天（哪天正常，第二天即关闭开注）</span></b><br/>
+                <span style='color: green;'>1、开注注册需要填写“开注邀请码”（上边导航下面），用户等级满足，邀请码有效。2、届时将关闭下载、tracker和rss！</span>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<table class="mainouter mt5" width="90%" cellspacing="0" cellpadding="5" align="center">
+    <tbody>
+    <tr>
+        <td id="outer" align="center" class="outer">
+            <table class="main" width="1200" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td class="embedded"><p class='mt10 fwb'>系统提醒</p><font
+                            color=red>今天已签到，请勿重复刷新(高频高量刷新可能导致封号)。</font>已刷次数：<b>0</b>次。<br>
+                        <p class='mt10 fwb'>总签到记录</p><span>总签到：38天</span><span class=ml10>等级：<b
+                                title='签到等级：周级 OR 3/7级'>🌓</b></span><span class=ml50>第一次签到：2024-07-21 20:42:28</span><span
+                                class=ml10>距今：5月前</span><span class=ml50>本次连续签到开始时间：20241225</span><br>签到等级参考《<a
+                                href="/forums.php?action=viewtopic&topicid=16&page=0" class=fcs>致新用户</a>》第四部分第88条<br>
+                        <p class='mt10'><b>7天签到记录</b>（补签卡剩余：7，用户ID：<a class=fcs
+                                                                                  href='/userdetails.php?id=98669'>98669</a>）
+                        </p><span class="dib w200 pr20">时间：2024-12-26 14:03:59</span><span class="dib w150">获得魔力值：<b>100</b></span><span
+                                class="ml20">连续天数：<b>2</b></span>天<span class="ml20">连续等级：<b><b
+                                title='连签之王：0/12级'>⛳</b></b></span><br><span class="dib w200 pr20">时间：2024-12-25 13:05:07</span><span
+                                class="dib w150">获得魔力值：<b>100</b></span><span class="ml20">连续天数：<b>1</b></span>天<span
+                                class="ml20">连续等级：<b><b title='连签之王：0/12级'>⛳</b></b></span><br><span
+                                class="dib w200 pr20">时间：2024-12-24</span><em>签到中止</em><a
+                                href="attendance.php?uid=98669&type=append_sign&append_sign=2"
+                                class="btn btn-mini btn-normal ml10">补签</a><br><span class="dib w200 pr20">时间：2024-12-23</span><em>签到中止</em><a
+                                href="attendance.php?uid=98669&type=append_sign&append_sign=3"
+                                class="btn btn-mini btn-normal ml10">补签</a><br><span class="dib w200 pr20">时间：2024-12-22</span><em>签到中止</em><a
+                                href="attendance.php?uid=98669&type=append_sign&append_sign=4"
+                                class="btn btn-mini btn-normal ml10">补签</a><br><span class="dib w200 pr20">时间：2024-12-21</span><em>签到中止</em><a
+                                href="attendance.php?uid=98669&type=append_sign&append_sign=5"
+                                class="btn btn-mini btn-normal ml10">补签</a><br><span class="dib w200 pr20">时间：2024-12-20 00:04:46</span><span
+                                class="dib w150">获得魔力值：<b>100</b></span><span class="ml20">连续天数：<b>1</b></span>天<span
+                                class="ml20">连续等级：<b><b title='连签之王：0/12级'>⛳</b></b></span><br>
+                        <h2>补签卡使用说明</h2>1、获得补签卡：方式一、因系统维护发放。方式二、捐赠获得：用途补签卡，5RMB/5张(参考捐赠页说明发送站内信)。
+                        <br>2、只能补签7天内的未签到。
+                        <br>3、可以获得基于补签前一天的魔力值。
+                        <br>4、可以弥补连续天数，但不能弥补当天增值魔力。<br>
+                        <p class='mt10'><b>前30天签到记录</b></p><span>连续天数：2</span><span
+                                class="ml10">签到日：20241226</span><br><span>连续天数：1</span><span class="ml10">签到日：20241225</span><br><span>连续天数：1</span><span
+                                class="ml10">签到日：20241220</span><br><span>连续天数：1</span><span class="ml10">签到日：20241217</span><br><span>连续天数：1</span><span
+                                class="ml10">签到日：20241214</span><br><span>连续天数：1</span><span class="ml10">签到日：20241212</span><br><span>连续天数：2</span><span
+                                class="ml10">签到日：20241209</span><br><span>连续天数：1</span><span class="ml10">签到日：20241208</span><br><span>连续天数：1</span><span
+                                class="ml10">签到日：20241119</span><br><span>连续天数：1</span><span class="ml10">签到日：20241027</span><br><span>连续天数：1</span><span
+                                class="ml10">签到日：20241005</span><br><span>连续天数：1</span><span class="ml10">签到日：20240911</span><br><span>连续天数：2</span><span
+                                class="ml10">签到日：20240905</span><br><span>连续天数：1</span><span class="ml10">签到日：20240904</span><br><span>连续天数：5</span><span
+                                class="ml10">签到日：20240902</span><br><span>连续天数：4</span><span class="ml10">签到日：20240901</span><br><span>连续天数：3</span><span
+                                class="ml10">签到日：20240831</span><br><span>连续天数：2</span><span class="ml10">签到日：20240830</span><br><span>连续天数：1</span><span
+                                class="ml10">签到日：20240829</span><br><span>连续天数：1</span><span class="ml10">签到日：20240825</span><br><span>连续天数：4</span><span
+                                class="ml10">签到日：20240823</span><br><span>连续天数：3</span><span class="ml10">签到日：20240822</span><br><span>连续天数：2</span><span
+                                class="ml10">签到日：20240821</span><br><span>连续天数：1</span><span class="ml10">签到日：20240820</span><br><span>连续天数：2</span><span
+                                class="ml10">签到日：20240810</span><br><span>连续天数：1</span><span class="ml10">签到日：20240809</span><br><span>连续天数：1</span><span
+                                class="ml10">签到日：20240807</span><br><span>连续天数：1</span><span class="ml10">签到日：20240802</span><br><span>连续天数：2</span><span
+                                class="ml10">签到日：20240731</span><br><span>连续天数：1</span><span class="ml10">签到日：20240730</span><br>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<div id='footer'>
+    <div style='padding:20px 0;' align='center'> (c) <a href='https://www.pttime.org' target='_self'>PTT</a> 2019.12.1 -
+        2024.12.26 Powered by PTT-NP<br/><br/>[page created in <b> 0.011186 </b> sec with <b>30</b> db queries,
+        <b>13</b> reads and <b>11</b> writes of memcached and <b>12.00MB</b> ram]
+    </div>
+</div>    <!-- 底部html -->
+<div style="display: none;" id="imgbox" class="imgbox"></div>
+<div style="display: none;" id="lightbox" class="lightbox"></div>
+<div style="display: none;" id="curtain" class="curtain"></div>
+<div class="content">
+    <div class="goTop w50 h50 lh50 pf" style="bottom: 100px;right: 20px;display: none;"><img
+            src="data:image/png;base64,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"
+            style="width: 100%;"></div>
+</div>
+</body>
+
+<script type='text/javascript'>
+    // 模态框
+    // 创建模态框的函数
+    function createModal(content) {
+        // 创建模态框容器
+        var modal = document.createElement('div');
+        modal.id = 'myModal';
+        modal.className = 'modal';
+
+        // 创建模态框内容
+        var modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+
+        // 创建关闭按钮
+        var closeSpan = document.createElement('span');
+        closeSpan.className = 'close';
+        closeSpan.innerHTML = '&times;';
+        closeSpan.onclick = function () {
+            closeModal(modal);
+        };
+
+        // 创建内容区域
+        var contentDiv = document.createElement('div');
+        contentDiv.innerHTML = content;
+
+        // 将元素添加到模态框内容中
+        modalContent.appendChild(closeSpan);
+        modalContent.appendChild(contentDiv);
+
+        // 将模态框内容添加到模态框容器中
+        modal.appendChild(modalContent);
+
+        // 将模态框容器添加到body中
+        document.body.appendChild(modal);
+
+        // 显示模态框
+        modal.style.display = 'block';
+    }
+
+    // 关闭模态框的函数
+    function closeModal(modal) {
+        modal.style.display = 'none';
+        document.body.removeChild(modal);
+    }
+
+    // 为每个按钮添加点击事件
+    var buttons = document.getElementsByClassName('openModalBtn');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].onclick = function () {
+            var content = this.getAttribute('data-content');
+            createModal(content);
+        };
+    }
+
+    // 当用户点击模态框外的区域时关闭模态框
+    window.onclick = function (event) {
+        var modal = document.getElementById('myModal');
+        if (modal && event.target == modal) {
+            closeModal(modal);
+        }
+    }
+    // 图片懒加载
+    var images = document.querySelectorAll('#kdescr img');
+    for (var i = 0; i < images.length; i++) {
+        (function (img) {
+            if (img.complete) {
+                return; // 如果图片已加载完成，则不执行后续操作
+            }
+            img.style.display = 'none';
+            var loadingFont = document.createElement('div');
+            loadingFont.className = 'loading';
+            loadingFont.innerHTML = '图太大，缓慢加载中...';
+            img.parentNode.insertBefore(loadingFont, img.nextSibling);
+            var src = img.getAttribute('src');
+
+            img.addEventListener('load', function () {
+                if (img.width > 800) {
+                    img.width = 800;
+                }
+                img.style.display = 'block';
+                var loading = img.nextSibling;
+                if (loading && loading.className == 'loading') {
+                    img.parentNode.removeChild(loading);
+                }
+            });
+
+            img.addEventListener('error', function () {
+                var loading = img.nextSibling;
+                if (loading && loading.className == 'loading') {
+                    loading.classList.remove('loading');
+                    loading.classList.add('loadingErr');
+                    loading.innerHTML = '图片加载失败：<a target=_blank class="fcs" href="' + loading.getAttribute('data-src') + '">' + loading.getAttribute('data-src') + '</a>';
+                }
+            });
+
+            loadingFont.setAttribute('data-src', src);
+        })(images[i]);
+    }
+    //图片放大功能
+    var MenuOutTime = 0;
+    var ShowDivList = [];
+
+    function hiddmenu(t) {
+        MenuOutTime = 0;
+        t = t > 500 ? t : 500;
+        setTimeout(function () {
+            if (MenuOutTime != 1) {
+                for (var objname in ShowDivList) {
+                    $(objname).style.display = 'none';
+                }
+            }
+        }, t);
+    }
+
+    function setmenutime() {
+        MenuOutTime = 1
+    }
+
+    function CPos(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    // 放单资源列表单个图片:obj,需要显示的元素，url图片url
+    function showmenu(obj, objname, url) {
+
+        for (var rowname in ShowDivList) {
+            $(rowname).style.display = 'none';
+        }
+        if (!url) return false;
+
+        if (!$(objname)) {
+            var objdiv = document.createElement("div");
+            objdiv.id = objname;
+        } else {
+            var objdiv = $(objname);
+        }
+        var target = obj;
+        var pos = new CPos(target.offsetLeft, target.offsetTop);
+
+        var target = target.offsetParent;
+        while (target) {
+            pos.x += target.offsetLeft;
+            pos.y += target.offsetTop;
+
+            target = target.offsetParent
+        }
+        objdiv.style.display = 'block';
+        objdiv.onmousemove = function () {
+            setmenutime();
+        };
+        objdiv.onmouseout = function () {
+            hiddmenu(objname);
+        };
+        objdiv.onclick = function () {
+            objdiv.style.display = 'none';
+        };
+
+        objdiv.style.position = 'absolute';
+        objdiv.style.left = (pos.x) + 42 + 'px';
+        objdiv.style.top = (pos.y + 25) - 25 + 'px';
+        if (!$(objname + '_img')) {
+            objdiv.innerHTML = '';
+            var picdiv = document.createElement("img");
+            picdiv.setAttribute('src', url);
+            picdiv.setAttribute('height', '400');
+            picdiv.setAttribute('id', objname + '_img');
+            //picdiv.style.display = 'none';
+            picdiv.onload = function () {
+                //picdiv.style.display = '';
+                resource_drawimage(objname + '_img', 325, 400);
+            };
+            objdiv.appendChild(picdiv);
+        }
+        document.body.appendChild(objdiv);
+        ShowDivList[objname] = 1;
+        MenuOutTime = 1;
+
+        return false;
+    }
+
+    function resource_drawimage(objname, iwidth, iheight) {
+        var ImgD = $(objname);
+        var image = new Image();
+        image.src = ImgD.src;
+        if (image.width > 0 && image.height > 0) {
+            if (image.width / image.height >= iwidth / iheight) {
+                if (image.width > iwidth) {
+                    ImgD.width = iwidth;
+                    ImgD.height = (image.height * iwidth) / image.width;
+                } else {
+                    ImgD.width = image.width;
+                    ImgD.height = image.height;
+                }
+                ImgD.alt = image.width + "X" + image.height;
+            } else {
+                if (image.height > iheight) {
+                    ImgD.height = iheight;
+                    ImgD.width = (image.width * iheight) / image.height;
+                } else {
+                    ImgD.width = image.width;
+                    ImgD.height = image.height;
+                }
+                ImgD.alt = image.width + "X" + image.height;
+            }
+        }
+    }
+
+    function getAvByno() {
+        var avNo = document.getElementById('av_no').value;
+        var url = '/spider.php?type=avno&cat=441&f=javdb&no=' + avNo;
+        window.open(url, '_blank');
+    }
+
+    function getDoubanById() {
+        var douban_url = document.getElementById('dburl').value;
+        var douban_id = douban_url.match(/\d+/)[0];
+        var url = '/action.php?type=douban&id=' + douban_id;
+        window.open(url, '_blank');
+    }
+
+    function getImdbById() {
+        var imdb_url = document.getElementById('imdburl').value;
+        var imdb_id = imdb_url.match(/\d+/)[0];
+        var url = '/action.php?type=imdb&id=tt' + imdb_id;
+        window.open(url, '_blank');
+    }
+
+    function getDoubanByDescr() {
+        var descr = document.getElementById('descr').value;
+        var url = "/action.php?type=get_descr_to_douban&descr=" + descr;
+        window.open(url, '_blank');
+    }
+
+    //当用户滑动滚动条达到400px，返回按钮显示，小于400px隐藏
+    //点击返回按钮时，让滚动条恢复原位
+    //第一个功能
+    let goTop = document.getElementsByClassName('goTop')[0];
+    //滑动用到window的onscroll（）的方法
+    window.onscroll = function () {
+        //让谁进行滚动 body html（有的浏览器获取不到body或html），所以做一个兼容的方式
+        //scrollTop据顶部的滑动的距离
+        let res = document.body.scrollTop || document.documentElement.scrollTop;
+        if (res >= 200) {//当大于400px，按钮出现
+            goTop.style.display = 'block';
+        } else {
+            goTop.style.display = 'none';
+        }
+    }
+
+    //第二个功能，点击返回功能
+    document.getElementsByClassName('goTop')[0].addEventListener('click', function () {
+        var scrollStep = -window.scrollY / 20; // 每次滚动的步长，可以根据需要调整
+        var scrollInterval = setInterval(function () {
+            if (window.scrollY !== 0) {
+                window.scrollBy(0, scrollStep);
+            } else {
+                clearInterval(scrollInterval);
+            }
+        }, 10); // 每10毫秒更新一次滚动位置
+    });
+
+
+    // 监听offer选择
+    var selectofferobj = document.getElementById("selectoffer");
+    if (selectofferobj) {
+        selectofferobj.onchange = function (e) {
+            var selectofferobjval = selectofferobj.value;
+            jsajax({
+                type: "POST",
+                url: "action.php?type=get_offer",
+                dataType: "json",
+                data: {"id": selectofferobjval},
+                beforeSend: function () {
+                    document.getElementById("offer_tips").style.color = 'red';
+                    document.getElementById("offer_tips").textContent = '请求数据中';
+                },
+                success: function (msg) {
+                    if (msg != 0) {
+                        document.getElementById("offer_tips").style.color = 'green';
+                        document.getElementById("offer_tips").textContent = '请求完成';
+                        document.getElementById("seed_name").value = msg.name;
+                        document.getElementById("small_descr").value = msg.small_descr;
+                        document.getElementById("dburl").value = msg.douban;
+                        document.getElementById("imdburl").value = msg.imdb;
+                        document.getElementById("descr").value = msg.descr;
+                    } else {
+                        document.getElementById("offer_tips").style.color = 'red';
+                        document.getElementById("offer_tips").textContent = '无此数据';
+                    }
+                },
+                error: function () {
+                    console.log("error")
+                }
+            })
+        }
+    }
+
+</script>
+</html>
