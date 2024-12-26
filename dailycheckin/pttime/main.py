@@ -24,14 +24,9 @@ class PTTime(CheckIn):
 
     # 解析签到的html结果
     def parse_sign_result(self, sign_result):
-        html_file_path = os.path.join(os.path.dirname(__file__), "tmp.html")
-
-        # 读取HTML文件内容
-        with open(html_file_path, 'r', encoding='utf-8') as file:
-            html_content = file.read()
 
         # 使用BeautifulSoup解析HTML
-        soup = BeautifulSoup(html_content, 'html.parser')
+        soup = BeautifulSoup(sign_result, 'html.parser')
 
         # 提取用户信息
         user_info = soup.find('span', class_='medium left').text.strip()

@@ -2,11 +2,11 @@ import os
 
 from setuptools import find_packages, setup
 
-NAME = "dailycheckin"
+NAME = "dailycheckin_l"
 FOLDER = "dailycheckin"
-DESCRIPTION = "dailycheckin"
-EMAIL = "133397418@qq.com"
-AUTHOR = "Sitoi"
+DESCRIPTION = "一个 dailycheckin 仓库的fork"
+EMAIL = "s_xun_s@163.com"
+AUTHOR = "s_xun_s"
 REQUIRES_PYTHON = ">=3.9.0"
 VERSION = None
 
@@ -70,7 +70,7 @@ setup(
     include_package_data=True,
     license="MIT",
     zip_safe=False,
-    entry_points={"console_scripts": ["dailycheckin = dailycheckin.main:checkin"]},
+    entry_points={"console_scripts": ["dailycheckin_l = dailycheckin.main:checkin"]},
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3.9",
