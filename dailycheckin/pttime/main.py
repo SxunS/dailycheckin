@@ -123,5 +123,5 @@ if __name__ == "__main__":
         encoding="utf-8",
     ) as f:
         datas = json.loads(f.read())
-    _check_item = datas.get("PTTime", [])[0]
+    _check_item = datas.get("PTTIME", [])[0]
     print(PTTime(check_item=_check_item).main())

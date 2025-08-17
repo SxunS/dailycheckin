@@ -9,7 +9,7 @@ class MyTestCase(unittest.TestCase):
 
 
     def test_something(self):
-        html_file_path = os.path.join(os.path.dirname(__file__), "tmp.html")
+        html_file_path = os.path.join(os.path.dirname(__file__), "tmp-success.html")
 
         # 读取HTML文件内容
         with open(html_file_path, 'r', encoding='utf-8') as file:
@@ -20,8 +20,8 @@ class MyTestCase(unittest.TestCase):
 
         # 提取用户信息
         user_info = soup.find('span', class_='medium left').text.strip()
-        user_name = soup.find('a', class_='PowerUser_Name').text.strip()
-        user_id = soup.find('a', class_='PowerUser_Name')['href'].split('=')[-1]
+        user_name = soup.find('a', class_='EliteUser_Name').text.strip()
+        user_id = soup.find('a', class_='EliteUser_Name')['href'].split('=')[-1]
 
         # 提取用户等级
         # 使用正则表达式提取等级
