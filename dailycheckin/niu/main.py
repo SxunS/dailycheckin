@@ -168,27 +168,40 @@ class Niu(CheckIn):
             return "获取帖子列表失败"
 
         shared = set(state.get("shared", []))
-        target = next((it for it in items if it["id"] not in shared), items[0])
-        pid = target["id"]
-
-        result = self._share(access_token, pid)
-        msg = [f"账号: {self.account}", f"分享帖子: {pid}"]
-        if result.get("status") == 0:
-            shared.add(pid)
-            state["shared"] = list(shared)
-            self._save_state(state)
-            msg.append("分享结果: 成功")
-        else:
-            msg.append(f"分享结果: 失败 {result}")
 
         try:
-            points = self._points(access_token)
-            if points is not None:
-                msg.append(f"当前积分: {points}")
+            points_before = self._points(access_token)
         except Exception:
-            pass
+            points_before = None
 
-        return "\n".join(msg)
+        failures = []
+        for _ in range(2):
+            target = next((it for it in items if it["id"] not in shared), items[0])
+            pid = target["id"]
+            result = self._share(access_token, pid)
+            if result.get("status") == 0:
+                shared.add(pid)
+                state["shared"] = list(shared)
+                self._save_state(state)
+            else:
+                failures.append(f"{pid}: {result}")
+
+        try:
+            points_after = self._points(access_token)
+        except Exception:
+            points_after = None
+
+        if points_before is not None and points_after is not None:
+            change = points_after - points_before
+            sign = "+" if change > 0 else ""
+            msg = f"积分变化: {sign}{change}"
+        else:
+            msg = "分享成功"
+
+        if failures:
+            msg += f"\n分享失败: {failures}"
+
+        return msg
 
 
 if __name__ == "__main__":
