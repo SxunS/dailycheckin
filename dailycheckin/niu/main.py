@@ -1,6 +1,7 @@
 import base64
 import json
 import os
+import threading
 import time
 
 import requests
@@ -19,14 +20,19 @@ class Niu(CheckIn):
     )
     API_BASE = "https://app-api.niu.com"
     AUTH_URL = "https://account.niu.com/v3/api/oauth2/token"
-    # token / 已分享帖子 id 持久化文件（建议加入 .gitignore）
-    STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "niu_token.json")
+    # 状态持久化目录（放在包外，避免升级时被删除）
+    DEFAULT_STATE_DIR = os.path.join(os.path.expanduser("~"), ".dailycheckin")
+    _STATE_LOCK = threading.Lock()
 
     def __init__(self, check_item):
         self.check_item = check_item
-        self.account = check_item.get("account", "")
-        self.password = check_item.get("password", "")  # 密码 MD5（抓包得到）
+        self.account = (check_item.get("account") or "").strip()
+        self.password = (check_item.get("password") or "").strip().lower()  # 密码 MD5（接口区分大小写，统一小写）
         self.app_id = check_item.get("app_id", self.APP_ID)
+        self.state_file = check_item.get("state_file") or os.path.join(
+            self.DEFAULT_STATE_DIR, "niu_token.json"
+        )
+        self._state_key = self.account or self.password or "default"
         self.session = requests.session()
         self.session.headers.update({"user-agent": self.UA})
 
@@ -41,21 +47,31 @@ class Niu(CheckIn):
             return 0
 
     def _load_state(self):
-        if os.path.exists(self.STATE_FILE):
-            with open(self.STATE_FILE, encoding="utf-8") as f:
-                data = json.load(f)
-        else:
-            data = {}
-        return data.get(self.account, {})
+        data = {}
+        with self._STATE_LOCK:
+            if os.path.exists(self.state_file):
+                try:
+                    with open(self.state_file, encoding="utf-8") as f:
+                        data = json.load(f)
+                except (json.JSONDecodeError, OSError):
+                    data = {}
+        return data.get(self._state_key, {})
 
     def _save_state(self, state):
-        all_state = {}
-        if os.path.exists(self.STATE_FILE):
-            with open(self.STATE_FILE, encoding="utf-8") as f:
-                all_state = json.load(f)
-        all_state[self.account] = state
-        with open(self.STATE_FILE, "w", encoding="utf-8") as f:
-            json.dump(all_state, f, ensure_ascii=False, indent=2)
+        with self._STATE_LOCK:
+            data = {}
+            if os.path.exists(self.state_file):
+                try:
+                    with open(self.state_file, encoding="utf-8") as f:
+                        data = json.load(f)
+                except (json.JSONDecodeError, OSError):
+                    data = {}
+            data[self._state_key] = state
+            os.makedirs(os.path.dirname(self.state_file), exist_ok=True)
+            tmp_file = self.state_file + ".tmp"
+            with open(tmp_file, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            os.replace(tmp_file, self.state_file)
 
     # ---------- 登录 / 刷新 ----------
     def _oauth(self, params):
@@ -167,7 +183,11 @@ class Niu(CheckIn):
         if not items:
             return "获取帖子列表失败"
 
-        shared = set(state.get("shared", []))
+        today = time.strftime("%Y-%m-%d")
+        by_date = state.get("shared_by_date")
+        if not isinstance(by_date, dict):
+            by_date = {}
+        shared = set(by_date.get(today, []))
 
         try:
             points_before = self._points(access_token)
@@ -181,7 +201,11 @@ class Niu(CheckIn):
             result = self._share(access_token, pid)
             if result.get("status") == 0:
                 shared.add(pid)
-                state["shared"] = list(shared)
+                by_date[today] = list(shared)
+                cutoff = time.strftime("%Y-%m-%d", time.localtime(time.time() - 7 * 86400))
+                state["shared_by_date"] = {
+                    d: ids for d, ids in by_date.items() if d >= cutoff
+                }
                 self._save_state(state)
             else:
                 failures.append(f"{pid}: {result}")
