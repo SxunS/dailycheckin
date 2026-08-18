@@ -1,6 +1,7 @@
 import base64
 import json
 import os
+import random
 import threading
 import time
 
@@ -195,7 +196,9 @@ class Niu(CheckIn):
             points_before = None
 
         failures = []
-        for _ in range(2):
+        for i in range(2):
+            if i > 0:
+                time.sleep(random.randint(3, 8))
             target = next((it for it in items if it["id"] not in shared), items[0])
             pid = target["id"]
             result = self._share(access_token, pid)
