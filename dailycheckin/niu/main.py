@@ -182,7 +182,7 @@ class Niu(CheckIn):
 
         items = self._get_posts(access_token)
         if not items:
-            return "获取帖子列表失败"
+            return f"账号: {self.account}\n获取帖子列表失败"
 
         today = time.strftime("%Y-%m-%d")
         by_date = state.get("shared_by_date")
@@ -228,7 +228,7 @@ class Niu(CheckIn):
         if failures:
             msg += f"\n分享失败: {failures}"
 
-        return msg
+        return f"账号: {self.account}\n{msg}"
 
 
 if __name__ == "__main__":
