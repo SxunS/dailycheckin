@@ -142,11 +142,11 @@ class Niu(CheckIn):
         return state["access_token"]
 
     # ---------- 社区分享 ----------
-    def _get_posts(self, access_token):
+    def _get_posts(self, access_token, page=1):
         resp = self.session.get(
             f"{self.API_BASE}/community/api/posts/recommend/list",
             params={
-                "page": 1,
+                "page": page,
                 "version": 0,
                 "page_size": 20,
                 "_": int(time.time() * 1000),
@@ -180,35 +180,43 @@ class Niu(CheckIn):
         state = self._load_state()
         access_token = self._ensure_token(state)
 
-        items = self._get_posts(access_token)
-        if not items:
-            return f"账号: {self.account}\n获取帖子列表失败"
-
-        today = time.strftime("%Y-%m-%d")
+        shared = set(state.get("shared", []))
         by_date = state.get("shared_by_date")
-        if not isinstance(by_date, dict):
-            by_date = {}
-        shared = set(by_date.get(today, []))
+        if isinstance(by_date, dict):
+            for ids in by_date.values():
+                shared.update(ids)
+            state.pop("shared_by_date", None)
 
         try:
             points_before = self._points(access_token)
         except Exception:
             points_before = None
 
+        targets = []
+        page = 1
+        while len(targets) < 2 and page <= 20:
+            items = self._get_posts(access_token, page)
+            if not items:
+                break
+            for it in items:
+                pid = it["id"]
+                if pid not in shared and pid not in targets:
+                    targets.append(pid)
+                    if len(targets) == 2:
+                        break
+            page += 1
+
+        if not targets:
+            return f"账号: {self.account}\n没有可分享的新帖子"
+
         failures = []
-        for i in range(2):
+        for i, pid in enumerate(targets):
             if i > 0:
                 time.sleep(random.randint(3, 8))
-            target = next((it for it in items if it["id"] not in shared), items[0])
-            pid = target["id"]
             result = self._share(access_token, pid)
             if result.get("status") == 0:
                 shared.add(pid)
-                by_date[today] = list(shared)
-                cutoff = time.strftime("%Y-%m-%d", time.localtime(time.time() - 7 * 86400))
-                state["shared_by_date"] = {
-                    d: ids for d, ids in by_date.items() if d >= cutoff
-                }
+                state["shared"] = sorted(shared)
                 self._save_state(state)
             else:
                 failures.append(f"{pid}: {result}")
@@ -227,6 +235,9 @@ class Niu(CheckIn):
 
         if failures:
             msg += f"\n分享失败: {failures}"
+
+        if len(targets) < 2:
+            msg += f"\n仅找到 {len(targets)} 个未分享帖子"
 
         return f"账号: {self.account}\n{msg}"
 
